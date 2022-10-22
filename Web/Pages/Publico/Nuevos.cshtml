@@ -1,0 +1,207 @@
+﻿@page
+@model Web.Pages.Publico.NuevosModel
+@{
+    ViewData["Title"] = "Vehículos 0 KM";
+}
+
+<section class="pb_cover_v3 text-left overflow-hidden jumbobotronblue" id="section-home" style="border-bottom: 15px solid #6ed9ff">
+    <div class="container">
+        <div class="row align-items-center justify-content-center mt-3">
+            <div class="col-md-4">
+                <h2 class="heading mb-3 tituloheader" style="text-align: left">
+                    AUTO QUE SUEÑAS
+                </h2>
+                <div class="sub-heading" style="color: #9c9aa0; text-align: left">
+                    <p class="mb-1 tituloheader" style="text-align: left">
+                        ENCUENTRA EL MODELO Y MARCA QUE BUSCAS Y VÍVELO
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-8 relative align-self-center search-box-nuevos" style="z-index:100">
+                <form method="post" class="bg-white rounded pb_form_v1">
+                    <h4 class="mb-3 mt-0">BUSCA TU AUTO NUEVO</h4>
+                    <div class="row">
+                        <div class="col">
+
+                            <div class="form-group">
+                                <div class="pb_select-wrap">
+                                    <select asp-for="Vm.FnTipoVehiculo" asp-items="Model.ListaTiposVehiculo" class="form-control pb_height-50 reverse">
+                                        <option value="" selected>TIPO VEHÍCULO</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <div class="pb_select-wrap">
+                                    <select asp-for="Vm.Combustible" asp-items="Model.ListaCombustible" class="form-control pb_height-50 reverse">
+                                        <option value="" selected>TIPO COMBUSTIBLE</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <div class="pb_select-wrap">
+                                    <select asp-for="Vm.FnMarcaId" asp-items="Model.ListaMarcas" class="form-control pb_height-50 reverse">
+                                        <option value="" selected>MARCA</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <div class="pb_select-wrap">
+                                    <select asp-for="Vm.FnModeloId" class="form-control pb_height-50 reverse">
+                                        <option value="" selected>MODELO</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <div class="pb_select-wrap">
+                                    <select asp-for="Vm.CantidadAsientos" asp-items="Model.CantidadesAsientos" class="form-control pb_height-50 reverse">
+                                        <option value="" selected>CANTIDAD ASIENTOS</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <div class="pb_select-wrap">
+                                    <select asp-for="Vm.Transmision" asp-items="Model.ListaTransmision" class="form-control pb_height-50 reverse">
+                                        <option value="" selected>TRANSMISIÓN</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <div class="pb_select-wrap">
+                                    <select asp-for="Vm.PrecioMin" asp-items="Model.ListaPrecios" class="form-control pb_height-50 reverse">
+                                        <option value="" selected>PRECIO MIN</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <div class="pb_select-wrap">
+                                    <select asp-for="Vm.PrecioMax" asp-items="Model.ListaPrecios" class="form-control pb_height-50 reverse">
+                                        <option value="" selected>PRECIO MAX</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary btn-lg btn-block pb_btn-pill  btn-shadow-blue" value="BUSCAR">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+
+<section class="pb_section py-5" id="section-features">
+
+    <div class="container">
+        <h5 class="text-uppercase pb_font-15 pb_color-dark-opacity-3 pb_letter-spacing-2 text-center"><strong>Búscalo por tipo</strong></h5>
+        <div class="row vertical-align vehicle-type-list my-5">
+            <div class="col-sm-2 text-center px-0">
+                <a asp-page="Resultados" asp-route-tipoVehiculo="Sedán" asp-route-handler="PorTipo" title=""><img src="~/images/vehicles/sedan.png" class="img-fluid"></a>
+                <p>Sedán</p>
+            </div>
+            <div class="col-sm-2 text-center px-0">
+                <a asp-page="Resultados" asp-route-tipoVehiculo="Suv" asp-route-handler="PorTipo" title=""><img src="~/images/vehicles/suv.png" class="img-fluid"></a>
+                <p>SUV</p>
+            </div>
+            <div class="col-sm-2 text-center px-0">
+                <a asp-page="Resultados" asp-route-tipoVehiculo="Hatchback" asp-route-handler="PorTipo" title=""><img src="~/images/vehicles/hatchback.png" class="img-fluid"></a>
+                <p>Hatchback</p>
+            </div>
+            <div class="col-sm-2 text-center px-0">
+                <a asp-page="Resultados" asp-route-tipoVehiculo="Cabriolet" asp-route-handler="PorTipo" title=""><img src="~/images/vehicles/coupe.png" class="img-fluid"></a>
+                <p>Cabriolet</p>
+            </div>
+            <div class="col-sm-2 text-center px-0">
+                <a asp-page="Resultados" asp-route-tipoVehiculo="Van" asp-route-handler="PorTipo" title=""><img src="~/images/vehicles/station.png" class="img-fluid"></a>
+                <p>Van</p>
+            </div>
+            <div class="col-sm-2 text-center px-0">
+                <a asp-page="Resultados" asp-route-tipoVehiculo="Camioneta" asp-route-handler="PorTipo" title=""><img src="~/images/vehicles/pickup.png" class="img-fluid"></a>
+                <p>Camioneta</p>
+            </div>
+        </div>
+
+        <div class="row justify-content-center mb-3">
+            <div class="col-md-8">
+                <h5 class="text-uppercase pb_font-15 pb_color-dark-opacity-3 pb_letter-spacing-2 text-center"><strong>VEHÍCULOS DESTACADOS</strong></h5>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-12">
+                <div class="k-content mt-3 bg-transparent">
+                    <div id="listView" class="grid-container bg-transparent"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<script type="text/x-kendo-template" id="template">
+    <div class="product card">
+        <a href="/Publico/PublicacionNuevo/#= idEnc #">
+            <img src="#= url#" alt="xx" class="card-img-top" heigh="150px" />
+        </a>
+        <div class="product-detail">
+            <h3>#:marca# #:modelo# </h3>
+            <p class="box-car-location">#:tipoVehiculo# - #:combustible#</p>
+            
+        </div>
+        <div class="product-actions">
+            <p class="box-car-price">$ #:precio# CLP</p>
+            <a href="/publico/PublicacionNuevo/#= idEnc #" class="btn btn-primary mb-3">MÁS INFORMACIÓN</a>
+        </div>
+    </div>
+</script>
+
+
+@section Csses
+    {
+    <link href="~/css/kendo.bootstrap-v4.min.css" rel="stylesheet" />
+    <link href="~/css/vehicle-styles.css" rel="stylesheet" />
+}
+
+
+@section Scripts
+    {
+    <script src="~/js/jszip.min.js"></script>
+    <script src="~/js/kendo.all.min.js"></script>
+    <script src="~/js/kendo.culture.es-CL.min.js"></script>
+    <script src="~/js/kendo.messages.es-ES.min.js"></script>
+    <script src="~/js/app/destacados.js"></script>
+
+}

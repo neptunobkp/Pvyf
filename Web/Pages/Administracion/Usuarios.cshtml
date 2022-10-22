@@ -1,0 +1,64 @@
+﻿@page
+@model Web.Pages.Administracion.UsuariosModel
+@{
+    ViewData["Title"] = "Usuarios";
+    Layout = "~/Pages/Shared/_InLayout.cshtml";
+}
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="actions">
+            <div id="tbcont"></div>
+        </div>
+        <div class="card-title">Usuarios</div>
+        <div class="table-responsive">
+            <div id="grid"></div>
+        </div>
+    </div>
+</div>
+<div id="window"></div>
+
+
+@section Csses
+{
+    <link href="~/css/kendo.bootstrap-v4.min.css" rel="stylesheet" />
+}
+@section Scripts
+{
+    <script src="~/js/jszip.min.js"></script>
+    <script src="~/js/kendo.all.min.js"></script>
+    <script src="~/js/kendo.culture.es-CL.min.js"></script>
+    <script src="~/js/kendo.messages.es-ES.min.js"></script>
+    <script src="~/js/egrid.js"></script>
+    <script>
+        $(document).ready(function () {
+            var settings = {
+                toolbar: [{ name: "create", text: " " }, { name: "excel", text: " " }],
+                propiedadPresentable: "nombre",
+                nombre: "Usuarios",
+                modelo: {
+                    id: "id",
+                    fields: {
+                        id: { editable: false, type: "number" },
+                        contrasena: { type: "string" },
+                        correo: {  type: "string" },
+                        nombre: {  type: "string" },
+                        esAdministrador: { type: "boolean" }
+                    }
+                },
+                columnas: [
+                    { field: "nombre", title: "Nombre" },
+                    { field: "correo", title: "correo" },
+                    { field: "contrasena", title: "", editor: passwordEditor, template: "…" },
+                    { field: "esAdministrador", title: "Administrador?" }
+                ]
+            }
+            editableGrid(settings);
+        });
+        function passwordEditor(container, options)
+        {
+            $('<input type="password" required data-bind="value:' + options.field + '"/>').appendTo(container);
+        };
+    </script>
+}

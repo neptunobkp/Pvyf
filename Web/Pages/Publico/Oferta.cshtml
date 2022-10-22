@@ -1,0 +1,277 @@
+﻿@page
+@model Web.Pages.Publico.OfertaModel
+@{
+    ViewData["Title"] = "Oferta";
+}
+
+<section id="section-home">
+    <div class="container">
+        <div class="row align-items-center justify-content-center mt-5">
+            <div class="col-md-12 relative align-self-center mt-5" style="z-index:100">
+                <form method="post" id="msform" enctype="multipart/form-data" class="bg-white rounded pb_form_v1 mt-2">
+                    <ul id="progressbar">
+                        <li class="active" id="account"><strong>Vehículo</strong></li>
+                        <li id="personal"><strong>Detalles</strong></li>
+                        <li id="personal"><strong>Inspección</strong></li>
+                        <li id="payment"><strong>Personal</strong></li>
+                        <li id="confirm"><strong>Completar</strong></li>
+                    </ul>
+
+                    <fieldset>
+                        <div class="form-card">
+                            <h2 class="fs-title">Información del vehículo</h2>
+
+
+                            <div class="form-group">
+                                <div class="pb_select-wrap">
+                                    <select asp-for="Vm.TipoVehiculo" asp-items="Model.TiposVehiculo" class="form-control pb_height-50 reverse">
+                                        <option value="" selected>Tipo Vehículo</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="pb_select-wrap">
+                                    <select asp-for="Vm.MarcaId" asp-items="Model.Marcas" class="form-control pb_height-50 reverse">
+                                        <option value="" selected>Marca</option>
+                                    </select>
+                                    <span asp-validation-for="Vm.MarcaId" class="invalid-feedback"></span>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="pb_select-wrap">
+                                    <select asp-for="Vm.ModeloId" class="form-control pb_height-50 reverse">
+                                        <option value="" selected>Modelo</option>
+                                    </select>
+                                    <span asp-validation-for="Vm.ModeloId" class="invalid-feedback"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="pb_select-wrap">
+                                    <select asp-for="Vm.VersionId" class="form-control pb_height-50 reverse">
+                                        <option value="" selected>Versión</option>
+                                    </select>
+                                    <span asp-validation-for="Vm.ModeloId" class="invalid-feedback"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="pb_select-wrap">
+                                    <select asp-for="Vm.Estado" class="form-control pb_height-50 reverse">
+                                        <option value="" selected>Estado</option>
+                                        <option value="1"> Como Nuevo</option>
+                                        <option value="2"> Buen estado</option>
+                                        <option value="3"> Aceptable</option>
+                                        <option value="4"> Mal estado</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="button" name="next" class="next action-button" value="Continuar" />
+                    </fieldset>
+                    <fieldset>
+                        <div class="form-card">
+                            <h2 class="fs-title">Información adicional del vehículo</h2>
+
+                            <div class="form-group">
+                                <input asp-for="Vm.Patente" type="text" class="form-control pb_height-50 reverse" placeholder="Patente">
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="Vm.ColorInterior" class="form-control pb_height-50 reverse" placeholder="Color Interior">
+                            </div>
+
+                            <div class="form-group">
+                                <input asp-for="Vm.ColorExterior" class="form-control pb_height-50 reverse" placeholder="Color Exterior">
+                            </div>
+
+                            <div class="form-group">
+                                <input asp-for="Vm.Kilometraje" type="number" class="form-control pb_height-50 reverse" placeholder="Kilometraje">
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="Vm.Anio" type="number" class="form-control pb_height-50 reverse" placeholder="Año">
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="Vm.CantidadDuenos" type="number" class="form-control pb_height-50 reverse" placeholder="Cantidad de dueños">
+                            </div>
+                        </div>
+                        <input type="button" name="previous" class="previous action-button-previous" value="Volver" />
+                        <input type="button" name="next" class="next action-button" value="Continuar" />
+                    </fieldset>
+
+                    <fieldset>
+                        <div class="form-card">
+                            <h2 class="fs-title">Inspección de tu vehículo</h2>
+                            <p>
+                                Puedes opcionalmente acceder al servicio de inspección de vehículo de Carnovum, el cual te permitirá obtener un certificado técnico que
+                                avala las condiciones técnicas de tu vehículo. Ingresa tus datos o dale continuar si no deseas este servicio
+                            </p>
+                            <div class="form-group">
+                                <input asp-for="Vm.FechaInspeccion" type="date" class="form-control pb_height-50 reverse" placeholder="Fecha">
+                                <span asp-validation-for="Vm.FechaInspeccion" class="invalid-feedback"></span>
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="Vm.DireccionInspeccion" type="text" class="form-control pb_height-50 reverse" placeholder="Dirección">
+                            </div>
+                            <div class="form-group">
+                                <div class="pb_select-wrap">
+                                    <select asp-for="Vm.RegionId" asp-items="Model.Regiones" class="form-control pb_height-50 reverse">
+                                        <option value="" selected>Región</option>
+                                    </select>
+                                    <span asp-validation-for="Vm.RegionId" class="invalid-feedback"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="pb_select-wrap">
+                                    <select asp-for="Vm.ComunaId" asp-items="Model.Comunas" class="form-control pb_height-50 reverse">
+                                        <option value="" selected>Comuna</option>
+                                    </select>
+                                    <span asp-validation-for="Vm.ComunaId" class="invalid-feedback"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" asp-for="Vm.IncluyeInspeccion" id="incluye-inspeccion" name="incluye-inspeccion">
+                                <label class="form-check-label" for="incluye-inspeccion">Prefiero continuar sin recibir este servicio</label>
+                            </div>
+                        </div>
+                        <input type="button" name="previous" class="previous action-button-previous" value="Volver" />
+                        <input type="button" name="next" class="next action-button" value="Continuar" />
+                    </fieldset>
+
+                    <fieldset>
+                        <div class="form-card">
+                            <h2 class="fs-title">Información personal</h2>
+                            <div class="form-group">
+                                <input asp-for="Vm.Rut" class="form-control pb_height-50 reverse" placeholder="Rut">
+                            </div>
+
+                            <div class="form-group">
+                                <input asp-for="Vm.Nombre" class="form-control pb_height-50 reverse" placeholder="Nombre">
+                            </div>
+
+                            <div class="form-group">
+                                <input asp-for="Vm.Correo" type="email" class="form-control pb_height-50 reverse" placeholder="Correo">
+                            </div>
+                        </div>
+                        <input type="button" name="previous" class="previous action-button-previous" value="Volver" /> <input type="button" name="make_payment" class="next action-button" value="Continuar" />
+                    </fieldset>
+                    <fieldset>
+                        <div class="form-card">
+                            <h2 class="fs-title text-center">Completar</h2> <br><br>
+                            <div class="form-group">
+                                <input asp-for="Vm.Precio" type="number" class="form-control pb_height-50 reverse" placeholder="Precio">
+                            </div>
+
+                            <div class="form-group">
+                                <textarea asp-for="Vm.Observaciones" class="form-control pb_height-50 reverse" placeholder="Observaciones"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <input id="fUpload" class="form-control" asp-for="Archivos" type="file" multiple />
+                            </div>
+                        </div>
+                        <input type="button" name="previous" class="previous action-button-previous" value="Volver" />
+                        <input type="submit" class="next action-button bg-success" value="Confirmar">
+                    </fieldset>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+@section Csses
+    {
+    <link href="~/css/wizard.css" rel="stylesheet" />
+}
+
+
+@section Scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/additional-methods.min.js"></script>
+    <script>
+        $(document).ready(function($) {
+
+
+            $('#incluye-inspeccion').change(function () {
+                var disabledValue = this.checked;
+                $("#Vm_RegionId").attr('disabled', disabledValue);
+                $("#Vm_ComunaId").attr('disabled', disabledValue);
+                $("#Vm_FechaInspeccion").attr('disabled', disabledValue);
+            });
+
+
+            var current_fs, next_fs, previous_fs; //fieldsets
+            var opacity;
+
+
+            $(".next").click(function() {
+                if ($("#msform").valid()) {
+                    current_fs = $(this).parent();
+                    next_fs = $(this).parent().next();
+
+                    console.log('asd', current_fs);
+
+                    //Add Class Active
+                    $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+                    //show the next fieldset
+                    next_fs.show();
+                    //hide the current fieldset with style
+                    current_fs.animate({ opacity: 0 },
+                        {
+                            step: function(now) {
+                                // for making fielset appear animation
+                                opacity = 1 - now;
+
+                                current_fs.css({
+                                    'display': 'none',
+                                    'position': 'relative'
+                                });
+                                next_fs.css({ 'opacity': opacity });
+                            },
+                            duration: 600
+                        });
+                }
+            });
+
+            $(".previous").click(function() {
+
+                current_fs = $(this).parent();
+                previous_fs = $(this).parent().prev();
+
+                //Remove class active
+                $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+
+                //show the previous fieldset
+                previous_fs.show();
+
+                //hide the current fieldset with style
+                current_fs.animate({ opacity: 0 },
+                    {
+                        step: function(now) {
+                            // for making fielset appear animation
+                            opacity = 1 - now;
+
+                            current_fs.css({
+                                'display': 'none',
+                                'position': 'relative'
+                            });
+                            previous_fs.css({ 'opacity': opacity });
+                        },
+                        duration: 600
+                    });
+            });
+
+            $('.radio-group .radio').click(function() {
+                $(this).parent().find('.radio').removeClass('selected');
+                $(this).addClass('selected');
+            });
+
+            $(".submit").click(function() {
+                return false;
+            });
+        });
+    </script>
+}

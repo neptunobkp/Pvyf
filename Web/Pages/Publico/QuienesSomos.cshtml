@@ -1,0 +1,75 @@
+﻿@page
+@model Web.QuienesSomosModel
+@{
+    ViewData["Title"] = "Quienes Somos";
+}
+
+
+<section class="pb_section pb_slant-light vehicle-detail pb-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-9 pr-5">
+                <h1>Hola, ¡Somos CARNOVUM!</h1>
+
+                <p class="mt-4">
+                    Hacemos que todo lo relacionado a tu automóvil sea fácil, económico y agradable.
+                    Nuestro Equipo hace que elegir y comprar su automóvil sea una experiencia transparente y fluida.
+                    Al comparar las mejores ofertas de nuestros principales distribuidores, obtiene el automóvil que
+                    desea, del distribuidor que más le guste y la financiera que más le acomode.
+                    Mientras conduzcas un vehículo gestionado por CARNOVUM, haremos que tengas un mundo de
+                    beneficios, garantías y mantenciones para su vehículo, que le permitirán seguir disfrutando de
+                    nuestros valores.
+                </p>
+                <p>Con CARNOVUM, puedes rápida y fácilmente ...</p>
+                <ul>
+                    <li><p>Elegir que CARNOVUM le compre su automóvil a un precio justo y seguro.</p></li>
+                    <li><p>Elegir publicar su vehículo para que un tercero lo compre de forma segura y confiable.</p></li>
+                    <li><p>Elegir su automóvil nuevo con la ayuda de nuestra asesoría técnica e imparcial. </p></li>
+                    <li><p>Compare las ofertas según el precio, la ubicación y la calificación del concesionario, sin necesidad de regatear, sin costos ocultos.</p></li>
+                </ul>
+
+                <p>Una vez comprado su vehículo, elegir acceder a beneficios, garantías y mantenciones que usted requiera.</p>
+                <p>Sepa que le buscaremos el mejor precio. En promedio, ahorramos a cada comprador 5% del valor comercial.</p>
+                <p>Compre directamente del distribuidor que prefiera: se entregarán a domicilio si es necesario.</p>
+                <p>Siéntase 100% cuidado durante todo el proceso de compra, con total garantía y atención posventa</p>
+                <p>Esperamos que disfrute de su viaje de compra y venta de automóviles con nosotros.</p>
+            </div>
+
+            <div class="col">
+                <h3 class="mb-4"></h3>
+                <p class="font-weight-bold">Nos encontramos en Santiago de Chile</p>
+                <div>
+                    <p class="font-weight-bold">Dirección:</p>
+                    <p>
+                        Carnovum Ltda.
+                        Fanor Velasco 85 Of 31
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="pb_pb-100 pb_pt-80">
+    <div class="container">
+        <h1>Contáctanos</h1>
+        <p>Estamos siempre disponibles para responder tus consultas. Contáctanos para saber más de nuestros servicios:</p>
+        <form method="post">
+            <div class="form-group">
+                <input type="text" asp-for="SolicitudVm.Nombres" class="form-control pb_height-50 reverse w-50" placeholder="NOMBRE">
+            </div>
+            <div class="form-group">
+                <input type="text" asp-for="SolicitudVm.Correo" class="form-control pb_height-50 reverse w-50" placeholder="CORREO">
+            </div>
+            <div class="form-group">
+                <input type="text" asp-for="SolicitudVm.Celular" class="form-control pb_height-50 reverse w-50" placeholder="TELÉFONO">
+            </div>
+            <div class="form-group">
+                <textarea rows="9" asp-for="SolicitudVm.Comentario" class="form-control reverse" placeholder="MENSAJE"></textarea>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary btn-lg btn-block pb_btn-pill  btn-shadow-blue" value="ENVIAR">
+            </div>
+        </form>
+    </div>
+</section>

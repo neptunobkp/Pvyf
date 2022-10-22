@@ -1,0 +1,192 @@
+﻿@page
+@model Web.Pages.Publico.CompraModel
+@{
+    ViewData["Title"] = "Compra";
+}
+
+<section class="pb_section pb-3 bg-light border-bottom">
+    <div class="container-fluid">
+        <div class="row justify-content-center bg-light">
+            <div class="col mb-1">
+                <h5 class="text-uppercase pb_font-15 mb-2 pb_color-dark-opacity-3 pb_letter-spacing-2"><strong>Vehículos</strong></h5>
+                <h2>Catálogo Usados</h2>
+            </div>
+        </div>
+        <form id="formfiltros" class="bg-light">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="pb_select-wrap">
+                            <select asp-for="Vm.MarcaId" asp-items="Model.Marcas" class="form-control pb_height-50 reverse">
+                                <option value="" selected>MARCA</option>
+                            </select>
+                            <span asp-validation-for="Vm.MarcaId" class="invalid-feedback"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="pb_select-wrap">
+                            <select asp-for="Vm.ModeloId" class="form-control pb_height-50 reverse">
+                                <option value="" selected>MODELO</option>
+                            </select>
+                            <span asp-validation-for="Vm.ModeloId" class="invalid-feedback"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <input asp-for="Vm.Anio" type="number" class="form-control pb_height-50 reverse" placeholder="AÑO">
+                        <span asp-validation-for="Vm.Anio" class="invalid-feedback"></span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control pb_height-50" id="filtrov" placeholder="Palabras clave" aria-label="d" aria-describedby="basic-addon2">
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary pb_height-50 ml-3" type="button">Buscar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section class="pb-5 mt-4" id="section-features">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2 pr-1">
+                <div class="panel-busqueda">
+                    <div class="pt-2 px-0 pb-4 border-bottom mb-3">
+                        <a asp-page="Oferta" class="btn btn-primary btn-full-width">Vende tu Auto</a>
+                    </div>
+                    <h4>Filtros</h4>
+                    <div class="filtros">
+                        <form method="post" id="formfiltros">
+                            <p>
+                                <div class="form-group">
+                                    <div class="pb_select-wrap">
+                                        <select class="form-control pb_height-50 reverse">
+                                            <option value="" selected>Tipo</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </p>
+                            <p>
+                                <div class="form-group">
+                                    <div class="pb_select-wrap">
+                                        <select class="form-control pb_height-50 reverse">
+                                            <option value="" selected>Marca</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </p>
+                            <p>
+                                <div class="form-group">
+                                    <div class="pb_select-wrap">
+                                        <select class="form-control pb_height-50 reverse">
+                                            <option value="" selected>Modelo</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </p>
+                            <p>
+                                <div class="form-group">
+                                    <div class="pb_select-wrap">
+                                        <select class="form-control pb_height-50 reverse">
+                                            <option value="" selected>Version</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </p>
+
+
+                            <p>
+                                <div class="form-group">
+                                    <div class="pb_select-wrap">
+                                        <select class="form-control pb_height-50 reverse">
+                                            <option value="" selected>Combustible</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </p>
+
+                            <p>
+                                <div class="form-group">
+                                    <div class="pb_select-wrap">
+                                        <select class="form-control pb_height-50 reverse">
+                                            <option value="" selected>Transmision</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </p>
+                            <p>
+                                <div class="form-group">
+                                    <label class="col-form-label">Cilindrada</label><br />
+                                    <div id="rangecilindrada">
+
+                                    </div>
+                                </div>
+                            </p>
+                            <p class="text-center">
+                                <button type="submit" class="btn btn-primary">Filtrar Búsqueda</button>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="k-content">
+                    <div id="listView" class="grid-container"></div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+<section class="p-5 bg-light">
+    <div class="mt-2 text-center">
+        <h5 class="text-uppercase pb_font-15 pb_color-dark-opacity-3 pb_letter-spacing-2 text-center mb-5"><strong>Información</strong></h5>
+        <p>Los vehículos listados son responsabilidad de sus dueños, Carnovum no puede asegurar la veracidad y calidad de la información entregada. Contamos también con un importante catálogo de vehículos nuevos con calidad garantizada que puedes revisar. </p>
+    </div>
+</section>
+
+    <script type="text/x-kendo-template" id="template">
+        <div class="product card">
+            <a href="/Publico/PublicacionUsado/#= idEnc #">
+                <img src="#= url#" alt="xx" class="card-img-top" />
+            </a>
+            <div class="product-detail">
+                <p class="box-brand-brand">#:marca# </p>
+                <p class="box-brand-model">#:modelo# </p>
+                <p class="box-car-location">#:tipoVehiculo# - #:combustible#</p>
+                <p class="box-car-location">Region Metropolitana</p>
+                <p class="box-car-location">17000 Kms - 2 Dueños</p>
+            </div>
+            <div class="product-actions">
+                <p class="box-car-price">$ #:precio# CLP</p>
+                <a href="/Publico/PublicacionUsado/#= idEnc #" class="btn btn-primary mb-3">Más Información</a>
+            </div>
+        </div>
+    </script>
+
+@section Csses
+{
+    <link href="~/css/kendo.bootstrap-v4.min.css" rel="stylesheet" />
+    <link href="~/css/vehicle-styles.css" rel="stylesheet" />
+}
+
+
+@section Scripts
+{
+    <script src="~/js/jszip.min.js"></script>
+    <script src="~/js/kendo.all.min.js"></script>
+    <script src="~/js/kendo.culture.es-CL.min.js"></script>
+    <script src="~/js/kendo.messages.es-ES.min.js"></script>
+    <script src="~/js/app/comprar.js"></script>
+}

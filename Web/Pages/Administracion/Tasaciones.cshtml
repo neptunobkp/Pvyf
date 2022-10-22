@@ -1,0 +1,146 @@
+﻿@page
+@model Web.Pages.Administracion.TasacionesModel
+@{
+    ViewData["Title"] = "Tasaciones";
+    Layout = "~/Pages/Shared/_InLayout.cshtml";
+}
+
+
+<div class="content__inner">
+    <div class="col-md-12" id="divGrid">
+        <div class="card">
+            <div class="card-body selectablegrid">
+                <h4 class="card-title">Ofertas</h4>
+                <div id="grid"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Csses
+    {
+    <link href="~/css/kendo.bootstrap-v4.min.css" rel="stylesheet" />
+    <link href="~/css/select2.min.css" rel="stylesheet" />
+}
+
+@section Scripts
+{
+    <script src="~/js/jszip.min.js"></script>
+    <script src="~/js/kendo.all.min.js"></script>
+    <script src="~/js/kendo.culture.es-CL.min.js"></script>
+    <script src="~/js/kendo.messages.es-ES.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            kendo.culture('es-Cl');
+
+
+            $("#grid").kendoGrid({
+                toolbar: ["excel"],
+                excel: {
+                    fileName: `Tasaciones.xlsx`,
+                    filterable: true
+                },
+                dataSource: {
+                    transport: {
+                        read: {
+                            url: `/Tasaciones/api/Tasaciones`
+                        }
+                    },
+                    schema: {
+                        model: {
+                            fields: {
+                                id: { type: "number" },
+                                marca: { type: "string" },
+                                modelo: { type: "string" },
+                                tasacion: { type: "string" },
+                                patente: { type: "string" },
+                                fecha: { type: "date" }
+                            }
+                        }
+                    },
+                    pageSize: 205,
+                },
+                height: 550,
+                scrollable: true,
+                sortable: true,
+                filterable: true,
+                pageable: {
+                    input: true,
+                    numeric: false
+                },
+                columns: [
+                    { field: "id", title: "N°" },
+                    { field: "marca", title: "Marca" },
+                    { field: "modelo", title: "Modelo" },
+                    { field: "patente", title: "Patente" },
+                    { field: "tasacion", title: "Tasación" },
+                    { field: "fecha", title: "Fecha" },
+                    {
+                        command: [
+                            {
+                                name: "Aprobar",
+                                text: "",
+                                iconClass: "k-icon k-i-track-changes-accept",
+                                click: aprobarYCerrar,
+                                visible: cerrarEsVisible
+                            },
+                            {
+                                name: "Rechazar",
+                                text: "",
+                                iconClass: "k-icon k-i-track-changes-reject",
+                                click: desmarcarYGuardar,
+                                visible: desmarcarEsVisible
+                            }
+                        ],
+                        title: "Estado contacto",
+                        width: "200px"
+                    }
+                ]
+            });
+
+            $("#grid").kendoTooltip({ filter: ".k-grid-Aprobar", content: function(e) { return "Contactado"; } });
+            $("#grid").kendoTooltip({ filter: ".k-grid-Rechazar", content: function(e) { return "No contactado"; } });
+        });
+
+        function cerrarEsVisible(e) {
+            return e.contactado == false;
+        };
+
+        function desmarcarEsVisible(e) {
+            return e.contactado == true;
+        };
+
+        function aprobarYCerrar(e) {
+            manejarEstado(this.dataItem($(e.currentTarget).closest("tr")),
+                'Completada',
+                'contactada');
+        };
+
+        function desmarcarYGuardar(e) {
+            manejarEstado(this.dataItem($(e.currentTarget).closest("tr")),
+                'Completada',
+                'no contactada');
+        };
+
+        function manejarEstado(dataItem, estadoVal, estadoMsg) {
+            kendo
+                .prompt(`Establecer tasación como ${estadoMsg}</br></br> Ingrese una observación`, '')
+                .then(function(data) {
+                    console.log('dataItem', dataItem);
+                    if (data !== '') {
+                        kendo.ui.progress($('#grid'), true);
+                        $.post(`/Tasaciones/api/Contactos/${dataItem.id}/Contactado`,
+                            { obs: data },
+                            function(result) {
+                                $('#grid').data('kendoGrid').dataSource.read();
+                                $('#grid').data('kendoGrid').refresh();
+                                kendo.ui.progress($('#grid'), false);
+                            });
+                    } else {
+                        manejarEstado(dataItem, estadoVal, estadoMsg);
+                    }
+                });
+        }
+    </script>
+
+}

@@ -1,0 +1,3 @@
+update versiones set traccion = 'Delantera' where traccion = '4x2 (2WD)'
+update versiones set traccion = 'Delantera' where len(ltrim(rtrim(traccion))) = 0
+update versiones set traccion = 'Integral' where traccion = '4x2 y 4x4' or traccion = '4x4 (AWD)'

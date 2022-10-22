@@ -1,0 +1,160 @@
+﻿@page
+@model Web.Pages.Publico.PublicarNuevoModel
+@{
+    ViewData["Title"] = "PublicarNuevo";
+}
+
+
+<section id="section-home">
+    <div class="container">
+        <div class="row align-items-center justify-content-center mt-3">
+            <div class="col-md-12 relative align-self-center mt-5" style="z-index:100">
+                <form method="post" id="msform" enctype="multipart/form-data" class="bg-white rounded pb_form_v1">
+                    <ul id="progressbar">
+                        <li class="active" id="account"><strong>Vehículo</strong></li>
+                        <li id="personal"><strong>Detalles</strong></li>
+                        <li id="payment"><strong>Personal</strong></li>
+                        <li id="confirm"><strong>Completar</strong></li>
+                    </ul>
+                    <fieldset>
+                        <div class="form-card">
+                            <h2 class="fs-title">Información del vehículo</h2>
+                            <div class="form-group">
+                                <div class="pb_select-wrap">
+                                    <select asp-for="Vm.TipoVehiculo" asp-items="@Model.TiposVehiculo" class="form-control pb_height-50 reverse">
+                                        <option value="" selected>Tipo Vehículo</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="pb_select-wrap">
+                                    <select asp-for="Vm.MarcaId" class="form-control pb_height-50 reverse">
+                                        <option value="" selected>Marca</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="pb_select-wrap">
+                                    <select asp-for="Vm.ModeloId" class="form-control pb_height-50 reverse">
+                                        <option value="" selected>Modelo</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="pb_select-wrap">
+                                    <select asp-for="Vm.VersionId" class="form-control pb_height-50 reverse">
+                                        <option value="" selected>Version</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="button" name="next" class="next action-button" value="Continuar" />
+                    </fieldset>
+                    <fieldset>
+                        <div class="form-card">
+                            <h2 class="fs-title text-center">Completar</h2> <br><br>
+                            <div class="form-group">
+                                <input asp-for="Vm.Precio" type="number" class="form-control pb_height-50 reverse" placeholder="Precio">
+                            </div>
+
+                            <div class="form-group">
+                                <textarea asp-for="Vm.Observaciones" class="form-control pb_height-50 reverse" placeholder="Observaciones"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <input id="fUpload" class="form-control" asp-for="Archivos" type="file" multiple />
+                            </div>
+                        </div>
+                        <input type="button" name="previous" class="previous action-button-previous" value="Volver" />
+                        <input type="submit" class="next action-button bg-success" value="Confirmar">
+                    </fieldset>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+@section Csses
+    {
+    <link href="~/css/wizard.css" rel="stylesheet" />
+}
+
+
+@section Scripts
+    {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function ($) {
+            var current_fs, next_fs, previous_fs; //fieldsets
+            var opacity;
+
+            $(".next").click(function () {
+
+
+                current_fs = $(this).parent();
+                next_fs = $(this).parent().next();
+
+                console.log('asd', current_fs);
+
+                //Add Class Active
+                $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+                //show the next fieldset
+                next_fs.show();
+                //hide the current fieldset with style
+                current_fs.animate({ opacity: 0 }, {
+                    step: function (now) {
+                        // for making fielset appear animation
+                        opacity = 1 - now;
+
+                        current_fs.css({
+                            'display': 'none',
+                            'position': 'relative'
+                        });
+                        next_fs.css({ 'opacity': opacity });
+                    },
+                    duration: 600
+                });
+            });
+
+            $(".previous").click(function () {
+
+                current_fs = $(this).parent();
+                previous_fs = $(this).parent().prev();
+
+                //Remove class active
+                $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+
+                //show the previous fieldset
+                previous_fs.show();
+
+                //hide the current fieldset with style
+                current_fs.animate({ opacity: 0 }, {
+                    step: function (now) {
+                        // for making fielset appear animation
+                        opacity = 1 - now;
+
+                        current_fs.css({
+                            'display': 'none',
+                            'position': 'relative'
+                        });
+                        previous_fs.css({ 'opacity': opacity });
+                    },
+                    duration: 600
+                });
+            });
+
+            $('.radio-group .radio').click(function () {
+                $(this).parent().find('.radio').removeClass('selected');
+                $(this).addClass('selected');
+            });
+
+            $(".submit").click(function () {
+                return false;
+            });
+        });
+    </script>
+}
+
+

@@ -1,0 +1,12 @@
+Server=localhost;Database=CarnovumDB;Trusted_Connection=True;
+"ConnectionStrings": {
+    "DefaultConnection": "Server=localhost;Database=CarnovumDB;Trusted_Connection=True;"
+  },
+Add-Migration Inicial -OutputDir "Data/Migrations"
+
+external-db.s35844.gridserver.com
+db35844_pulse@external-db.s35844.gridserver.com
+db35844_carnovum
+PulsE_1234
+
+-S tcp:carnovum.database.windows.net,1433 -U CarnovumDBA -P 1Tennis1 -d CarnovumDB -i D:\Work\dbo.Vehiculos.Table.sql

@@ -1,0 +1,252 @@
+﻿@page
+@model Web.Pages.Publico.MantencionesModel
+@{
+    ViewData["Title"] = "Mantenciones";
+}
+
+
+<section class="pb_section" id="section-features">
+    <div class="container-fluid">
+        <form method="post" id="formFiltros">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="pb_select-wrap">
+                            <select id="servicio" name="servicio" class="form-control pb_height-50 reverse">
+                                <option value="" selected>Servicio</option>
+                                <option value="CARWASH">Car wash</option>
+                                <option value="LLANTA">Llanterìa</option>
+                                <option value="TALLER">Taller</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="row justify-content-center mb-5">
+
+            <div class="col">
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Voucher</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col text-center">
+                            <a class="btn btn-danger" href="https://carnovum1.azurewebsites.net/VLLANTA.pdf" target="_blank">Descargar PDF</a>
+                        </div>
+                        <div class="col" style="border-left: 1px solid black">
+                            <form id="formEnvio">
+                                <input type="hidden" id="idServicio" name="idServicio" />
+                                <div class="form-group">
+                                    <label for="destinatario" class="col-form-label">Correo electrónico</label>
+                                    <input type="text" class="form-control" id="destinatario" name="destinatario">
+                                </div>
+                                <div class="form-group text-right">
+                                    <button type="submit" class="btn btn-primary">Enviar por email</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="mensajeModal" tabindex="-1" role="dialog" aria-labelledby="mensajeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mensajeModalLabel">Envío correo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="mensajeParcial">Enviando ...</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Csses
+    {
+    <style>
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+    </style>
+}
+
+@section Scripts
+    {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+
+        $(document).ready(function () {
+
+            $("#formEnvio").validate({
+                rules: {
+                    destinatario: {
+                        required: true,
+                        email: true
+                    }
+                },
+                messages: {
+                    destinatario: {
+                        required: "Porfavor ingrese un email",
+                        email: "Porfavor ingrese un email válido"
+                    }
+                },
+                submitHandler: function (form) {
+                    $('#exampleModal').modal('hide');
+                    $('#mensajeModal').modal('show');
+                    $.post('/Mantenciones/api/Envios', $("#formEnvio").serialize()).done(function (data) {
+                        $('#mensajeParcial').html('Correo enviado con éxito');
+
+                    });
+                }
+            });
+
+
+            $("#servicio").change(function () {
+                initMap();
+            });
+
+
+            $("#nombre").on("change",
+                function () {
+                    initMap();
+                });
+
+
+        });
+
+
+        var beaches = [
+            ['taller 1', -33.458580, -70.643020, 4],
+            ['taller 2', -33.459198, -70.648567, 5],
+            ['taller 3', -33.455242, -70.640349, 3],
+            ['taller 4', -33.455672, -70.629470, 2],
+            ['taller 5', -33.453712, -70.633804, 1]
+        ];
+        var markers = [];
+        var map;
+
+        function enviarPorEmail() {
+
+            $("#myform").validate({
+                onsubmit: false
+            });
+
+
+
+        }
+
+        function descargarvoucher(idServicio) {
+            $('#idServicio').val(idServicio);
+            $('#exampleModal').modal('show');
+        }
+
+        function initMap() {
+
+
+            $.post('/Mantenciones/api/LugaresServicio', $("#formFiltros").serialize()).done(function (data) {
+                console.log('data', data);
+
+
+                map = new google.maps.Map(document.getElementById('map'),
+                    {
+                        zoom: 15,
+                        center: { lat: -33.455388, lng: -70.634216 },
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    });
+
+                var marker, i;
+                var infowindow = new google.maps.InfoWindow();
+                for (i = 0; i < data.length; i++) {
+                    var beach = data[i];
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(Number.parseFloat(beach.lat), Number.parseFloat(beach.lng)),
+                        map: map,
+                        icon: 'https://carnovum1.azurewebsites.net/images/cv.png',
+                        data: data.nombre
+                    });
+
+                    google.maps.event.addListener(marker,
+                        'click',
+                        (function (marker, i) {
+                            return function () {
+                                infowindow.setContent(`<h3>${data[i].nombre}</h3>
+                                                                                  <p>${data[i].direccion}</p>
+                                                                                <p>Santiago</p> <p>Región Metropolitana</p> <p>Chile</p>
+                                                                                <br /> <button type="button"  class="btn btn-primary"
+                                                                    onClick="descargarvoucher(${data[i]
+                                        .id});">Descargar Voucher</button>`);
+                                infowindow.open(map, marker);
+                                for (var j = 0; j < markers.length; j++) {
+                                    markers[j].setIcon("https://carnovum1.azurewebsites.net/images/cv.png");
+                                }
+                                marker.setIcon("https://carnovum1.azurewebsites.net/images/cv.png");
+                            };
+                        })(marker, i));
+                    markers.push(marker);
+                }
+            });
+        }
+
+        // Data for the markers consisting of a name, a LatLng and a zIndex for the
+        // order in which these markers should display on top of each other.
+
+
+        function setMarkers(map) {
+            // Adds markers to the map.
+
+            // Marker sizes are expressed as a Size of X,Y where the origin of the image
+            // (0,0) is located in the top left of the image.
+
+            // Origins, anchor positions and coordinates of the marker increase in the X
+            // direction to the right and in the Y direction down.
+            var image = {
+                url:
+                    'https://developers.google.com/maps/documentation/javascript/examples/full/images/parking_lot_maps.png',
+                // This marker is 20 pixels wide by 32 pixels high.
+                size: new google.maps.Size(20, 32),
+                // The origin for this image is (0, 0).
+                origin: new google.maps.Point(0, 0),
+                // The anchor for this image is the base of the flagpole at (0, 32).
+                anchor: new google.maps.Point(0, 32)
+            };
+            // Shapes define the clickable region of the icon. The type defines an HTML
+            // <area> element 'poly' which traces out a polygon as a series of X,Y points.
+            // The final coordinate closes the poly by connecting to the first coordinate.
+            var shape = {
+                coords: [1, 1, 1, 20, 18, 20, 18, 1],
+                type: 'poly'
+            };
+
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvO9066ClSOm0MwZ6XA-416yE9cYsvQ-Y&callback=initMap">
+    </script>
+}

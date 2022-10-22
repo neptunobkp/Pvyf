@@ -1,0 +1,125 @@
+﻿@page
+@using Web.Infraestructura
+@model Web.Pages.Interno.IndexModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "Shared/_PLayout";
+}
+
+<section class="pb_section" id="section-features">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="demo-section k-content">
+                    <div id="listView"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/x-kendo-template" id="template">
+    <div class="product card">
+        <a href="/publico/PublicacionNuevo/#= idEnc #">
+            <img src="#= url#" alt="xx" class="card-img-top" heigh="150px" />
+        </a>
+        <div class="product-detail">
+            <h3>#:anio# #:marca# #:modelo# </h3>
+            <p>Particular Bío Bío</p>
+            <h3>
+                $ #:precio# CLP
+            </h3>
+
+        </div>
+        <div class="product-actions">
+            <a href="/publico/PublicacionNuevo/#= id #" class="btn btn-primary">MÁS INFORMACIÓN</a>
+        </div>
+    </div>
+</script>
+
+@section Csses
+    {
+    <link href="~/css/kendo.bootstrap-v4.min.css" rel="stylesheet" />
+    <style>
+        #listView {
+            padding: 10px 5px;
+            margin-bottom: -1px;
+        }
+
+        .product-actions {
+            text-align: center;
+            padding: 20px 0px;
+        }
+
+        .product-detail {
+            padding: 10px;
+        }
+
+        .product {
+            float: left;
+            position: relative;
+            width: 20%;
+            height: 500px;
+            margin: 25px;
+            padding: 0;
+            border-color: black;
+            border-width: 1px;
+        }
+
+        .k-listview:after {
+            content: ".";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+        }
+    </style>
+}
+
+
+@section Scripts
+{
+    <script src="~/js/jszip.min.js"></script>
+    <script src="~/js/kendo.all.min.js"></script>
+    <script src="~/js/kendo.culture.es-CL.min.js"></script>
+    <script src="~/js/kendo.messages.es-ES.min.js"></script>
+    <script>
+        var model = JSON.parse('@Html.Raw(Json.Serialize(User.GetUsuarioId()))');
+
+        $(document).ready(function() {
+
+            var dataSource = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        url: `/Ofertas/api/MisOfertas?usuarioId=${model}`
+                    }
+                },
+                pageSize: 9
+            });
+
+            $("#listView").kendoListView({
+                dataSource: dataSource,
+                scrollable: "endless",
+                template: kendo.template($("#template").html())
+            });
+
+            $('#filtrov').change(function(ev) { filtrarSubGrid('detalle', this.value); });
+            $('#Vm_Anio').change(function(ev) { filtrarSubGrid('anio', this.value); });
+            $('#Vm_MarcaId').change(function(ev) { filtrarSubGrid('marcaId', this.value); });
+            $('#Vm_ModeloId').change(function(ev) { filtrarSubGrid('modeloId', this.value); });
+        });
+
+        function filtrarSubGrid(campoNombre, valor) {
+            console.log('valor', valor);
+            var grid = $('#listView').data('kendoListView');
+            var field = campoNombre;
+            var operator = 'contains';
+            var value = valor;
+            grid.dataSource.filter({
+                field: field,
+                operator: operator,
+                value: value
+            });
+        }
+    </script>
+}

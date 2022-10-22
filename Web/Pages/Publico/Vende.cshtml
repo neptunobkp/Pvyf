@@ -1,0 +1,194 @@
+﻿@page
+@model Web.Pages.Publico.VendeModel
+@{
+    ViewData["Title"] = "Vende";
+}
+
+<section class="pb_cover_v3 text-left overflow-hidden jumbobotronblue" id="section-home" style="border-bottom: 15px solid #6ed9ff">
+    <div class="container">
+        <div class="row align-items-center justify-content-center mt-3">
+            <div class="col-md-4">
+                <h2 class="heading mb-3 tituloheader" style="text-align: left">
+                    VENDENOS TU AUTO
+                </h2>
+                <div class="sub-heading" style="color:#9c9aa0">
+                    <p class="mb-1 tituloheader">
+                        TE DAMOS EL MEJOR VALOR COMERCIAL DEL MERCADO
+                        <ul>
+                            <li style="color:white">
+                                COTIZACIÓN EN LÍNEA
+                            </li>
+                            <li style="color:white">
+                                INSPECCIÓN SIN COSTO
+                            </li>
+                            <li style="color:white">
+                                PAGO AL INSTANTE
+                            </li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-8 relative align-self-center mt-5" style="z-index:100">
+                <form method="post" class="bg-white rounded pb_form_v1">
+                    <h4 class="mb-1 mt-0 text-center">Datos de tu auto</h4>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <input asp-for="Vm.Patente" type="text" class="form-control pb_height-50 reverse" placeholder="PATENTE">
+                                <span asp-validation-for="Vm.Patente" class="invalid-feedback"></span>
+
+                            </div>
+
+                            <div class="form-group">
+                                <div class="">
+                                    <select asp-for="Vm.TipoVehiculo" asp-items="@Model.TiposVehiculo" class="form-control pb_height-50 reverse">
+                                        <option value="" selected>Tipo Vehículo</option>
+                                    </select>
+                                    <span asp-validation-for="Vm.TipoVehiculo" class="invalid-feedback"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="">
+                                    <select asp-for="Vm.MarcaId" asp-items="Model.Marcas" class="form-control pb_height-50 reverse">
+                                        <option value="" selected>Marca</option>
+                                    </select>
+                                    <span asp-validation-for="Vm.MarcaId" class="invalid-feedback"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="">
+                                    <select asp-for="Vm.ModeloId" class="form-control pb_height-50 reverse">
+                                        <option value="" selected>MODELO</option>
+                                    </select>
+                                    <span asp-validation-for="Vm.ModeloId" class="invalid-feedback"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <div class="">
+                                    <select asp-for="Vm.VersionId" class="form-control pb_height-50 reverse">
+                                        <option value="" selected>VERSION</option>
+                                    </select>
+                                    <span asp-validation-for="Vm.VersionId" class="invalid-feedback"></span>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <input asp-for="Vm.Anio" type="number" class="form-control pb_height-50 reverse" placeholder="AÑO">
+                                <span asp-validation-for="Vm.Anio" class="invalid-feedback"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <input asp-for="Vm.Kilometraje" class="numeros form-control pb_height-50 reverse" placeholder="KILOMETRAJE">
+                                <span asp-validation-for="Vm.Kilometraje" class="invalid-feedback"></span>
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="Vm.Correo" type="email" class="form-control pb_height-50 reverse" placeholder="CORREO">
+                                <span asp-validation-for="Vm.Correo" class="invalid-feedback"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col text-center">
+                            <input type="submit" class="btn btn-primary btn-lg  pb_btn-pill  btn-shadow-blue" value="TASA MI AUTO">
+                            <a class="btn btn-lg pb_btn-white-pill" asp-page="/Publico/Vende">Limpiar</a>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col text-center mt-5">
+                            <p>
+                                ¿No encuentras los datos de tu vehículo ?
+                            </p>
+                            <a class="btn btn-primary btn-lg  pb_btn-pill  btn-shadow-blue" asp-page="/Publico/Contacto">
+                                Contáctanos
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+
+<section class="pb_section" id="section-politicas">
+    <a style="position: absolute; right: 0; top: -80px;">
+        <img src="~/images/chat.png" width="150" />
+    </a>
+    <div class="container">
+
+        <div class="row align-items-center justify-content-center">
+            <div class="col">
+                <h2 class="heading mb-3 text-center">
+                    REALIZA ESTOS SIMPLES PASOS PARA REALIZAR TU VENTA
+                </h2>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col">
+                <div class="pb_pricing_v1 text-center">
+                    <img src="~/images/tasa.png" alt="vende" class="img-fluid" />
+                    <h4 class="mt-3">
+                        PRE-TASACIÓN
+                    </h4>
+                    <p class="mb-0 mt-2">
+                        Recibe una pre-tasación y agenda tu inspección.
+                    </p>
+                    <p>
+                        Tasa tu auto en nuestro sitio web
+                    </p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="pb_pricing_v1 text-center">
+                    <img src="~/images/inspeccion.png" alt="compra" class="img-fluid" />
+                    <h4 class="mt-3">
+                        INSPECCIÓN GRATIS
+                    </h4>
+                    <p class="mb-0 mt-2">
+                        Haz la inspección totalmente gratis
+                    </p>
+                    <p>
+                        Agenda tu inspección para que evaluemos tu auto.
+                    </p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="pb_pricing_v1  text-center">
+                    <img src="~/images/pagamos.png" alt="remata" class="img-fluid" />
+                    <h4 class="mt-3">
+                        PAGO AL INSTANTE
+                    </h4>
+                    <p class="mb-0 mt-2">
+                        Vende y recibe tu pago al instante
+                    </p>
+                    <p>
+                        Si aceptas nuestra oferta te pagamos al instante.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+@section Scripts
+    {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/jquery.mask.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.numeros').mask("#,##0", { reverse: true });
+        });
+
+    </script>
+
+}

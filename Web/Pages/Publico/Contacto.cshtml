@@ -1,0 +1,63 @@
+﻿@page
+@model Web.ContactoModel
+@{
+    ViewData["Title"] = "Contacto";
+}
+
+<section class="pb_section pb_slant-light vehicle-detail pb-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-9">
+                <form method="post">
+                    <h1 class="mb-4">Déjanos un mensaje</h1>
+                    <div class="form-group">
+                        <input type="text" asp-for="Vm.Nombres" class="nombre form-control pb_height-50 reverse w-50" placeholder="NOMBRE">
+                        <span asp-validation-for="Vm.Nombres" class="invalid-feedback"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" asp-for="Vm.Correo" class="form-control pb_height-50 reverse w-50" placeholder="CORREO">
+                        <span asp-validation-for="Vm.Correo" class="invalid-feedback"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" asp-for="Vm.Celular" class="celular form-control pb_height-50 reverse w-50" placeholder="TELÉFONO">
+                    </div>
+                    <div class="form-group">
+                        <textarea rows="9" asp-for="Vm.Comentario" class="form-control reverse" placeholder="MENSAJE"></textarea>
+                        <span asp-validation-for="Vm.Comentario" class="invalid-feedback"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary btn-lg btn-block pb_btn-pill  btn-shadow-blue" value="ENVIAR">
+                    </div>
+                </form>
+            </div>
+            <div class="col">
+                <h3 class="mb-4">También nos puedes encontrar</h3>
+                <p><a href="mailto:contacto@carnovum.cl?Subject=Hola" target="_top">contacto@carnovum.cl</a></p>
+                <div>
+                    <p>
+                        Carnovum Ltda.
+                        Fanor Velasco 85 Of 31
+                    </p>
+                </div>
+
+                <h3 class="mt-4">Prensa:</h3>
+                <p><a href="mailto:prensa@carnovum.cl?Subject=Hola" target="_top">prensa@carnovum.cl</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts
+    {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/jquery.mask.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.numeros').mask("#,##0", { reverse: true });
+            $('.celular').mask('0 0000 0000');
+            $('.nombre').mask('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', { 'translation': { A: { pattern: /[áéíóúÁÉÍÓÚñÑA-Za-z ]/ } } });
+        });
+    </script>
+
+}
+

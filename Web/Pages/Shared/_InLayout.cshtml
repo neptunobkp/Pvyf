@@ -1,0 +1,81 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Car</title>
+    <link href="~/css/material-design-iconic-font.min.css" rel="stylesheet" />
+    @RenderSection("Csses", required: false)
+   
+    <link href="~/css/app.min.css" rel="stylesheet" />
+
+</head>
+<body data-ma-theme="blue">
+
+    <main class="main">
+        <div class="page-loader">
+            <div class="page-loader__spinner">
+                <svg viewBox="25 25 50 50">
+                    <circle cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+                </svg>
+            </div>
+        </div>
+
+        @await Html.PartialAsync("_Header")
+        @await Html.PartialAsync("_Aside")
+
+        <section class="content">
+
+            @RenderBody()
+            <footer class="footer hidden-xs-down"></footer>
+        </section>
+
+    </main>
+
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/jquery.scrollbar.min.js"></script>
+    <script src="~/js/jquery-scrollLock.min.js"></script>
+    <script src="~/js/app.min.js"></script>
+@RenderSection("Scripts", required: false)
+    <script src="~/js/bootstrap-notify.min.js"></script>
+    <script type="text/javascript">
+        function notificar(message) {
+            $.notify({
+                icon: '',
+                title: '',
+                message: message,
+                url: ''
+            }, {
+                element: 'body',
+                type: 'success',
+                allow_dismiss: true,
+                offset: {
+                    x: 20,
+                    y: 20
+                },
+                spacing: 10,
+                z_index: 1031,
+                delay: 2500,
+                timer: 1000,
+                url_target: '_blank',
+                mouse_over: false,
+                animate: {
+                    enter: 'animated fadeInRight',
+                    exit: 'animated fadeOutRight'
+                }
+            });
+        }
+    </script>
+
+    @if (!string.IsNullOrEmpty(TempData["Message"] as string))
+    {
+    <script type="text/javascript">
+            notificar('@TempData["Message"]');
+    </script>
+    }
+
+</body>
+</html>

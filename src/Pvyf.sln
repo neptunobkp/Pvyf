@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.645
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "..\Web\Web.csproj", "{300C7112-2033-49B1-8D40-EDC985FAE388}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carnovum.WebTests", "Carnovum.WebTests\Carnovum.WebTests.csproj", "{1E1E8DC8-9A3A-425B-86B6-F2C8C40FE0FB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{300C7112-2033-49B1-8D40-EDC985FAE388}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{300C7112-2033-49B1-8D40-EDC985FAE388}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{300C7112-2033-49B1-8D40-EDC985FAE388}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{300C7112-2033-49B1-8D40-EDC985FAE388}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E1E8DC8-9A3A-425B-86B6-F2C8C40FE0FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E1E8DC8-9A3A-425B-86B6-F2C8C40FE0FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E1E8DC8-9A3A-425B-86B6-F2C8C40FE0FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E1E8DC8-9A3A-425B-86B6-F2C8C40FE0FB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {33BBB163-8FD3-4127-837A-44C098734EB5}
+	EndGlobalSection
+EndGlobal

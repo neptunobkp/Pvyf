@@ -1,0 +1,244 @@
+﻿@page "{handler?}"
+@model Web.Pages.Publico.ResultadosModel
+@{
+    ViewData["Title"] = "Resultados";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+
+<section class="pb_section pb-1" id="section-features">
+    <div class="container-fluid px-4">
+        <div class="row justify-content-center mb-5">
+            <div class="row w-100 results-top-bar mb-2">
+                <div class="col px-0 align-bottom">
+                    <span class="align-bottom"><span id="spanresultado"></span> de Búsqueda</span>
+                </div>
+                <div class="col-2 px-0">
+                    <div class="pb_select-wrap">
+                        <select class="form-control ">
+                            <option value="" selected>ORDENAR POR</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row w-100">
+                <div class="col-3 pr-1">
+                    <div class="panel-busqueda">
+                        <h4>Filtros</h4>
+                        <div class="filtros">
+                            <form method="post" id="formfiltros">
+                                <p>
+                                    <div class="form-group">
+                                        <div class="pb_select-wrap">
+                                            <select asp-for="Vm.FnTipoVehiculo" asp-items="@Model.ListaTiposVehiculo" class="form-control pb_height-50 reverse">
+                                                <option value="" selected>Tipo</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </p>
+                                <p>
+                                    <div class="form-group">
+                                        <div class="pb_select-wrap">
+                                            <select asp-for="Vm.FnMarcaId" asp-items="@Model.Marcas" class="form-control pb_height-50 reverse">
+                                                <option value="" selected>Marca</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </p>
+                                <p>
+                                    <div class="form-group">
+                                        <div class="pb_select-wrap">
+                                            <select asp-for="Vm.FnModeloId" class="form-control pb_height-50 reverse">
+                                                <option value="" selected>Modelo</option>
+                                            </select>
+                                            <span asp-validation-for="Vm.FnModeloId" class="invalid-feedback"></span>
+                                        </div>
+                                    </div>
+                                </p>
+                                <p>
+                                    <div class="form-group">
+                                        <div class="pb_select-wrap">
+                                            <select asp-for="Vm.FnVersionId" class="form-control pb_height-50 reverse">
+                                                <option value="" selected>Version</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </p>
+
+
+                                <p>
+                                    <div class="form-group">
+                                        <div class="pb_select-wrap">
+                                            <select asp-for="Vm.Combustible" asp-items="Model.ListaCombustible" class="form-control pb_height-50 reverse">
+                                                <option value="" selected>Combustible</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </p>
+
+                                <p>
+                                    <div class="form-group">
+                                        <div class="pb_select-wrap">
+                                            <select asp-for="Vm.Transmision" asp-items="Model.ListaTransmision" class="form-control pb_height-50 reverse">
+                                                <option value="" selected>Transmision</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </p>
+                                <p>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Cilindrada</label><br/>
+                                        <div id="rangecilindrada" >
+                                            <input asp-for="Vm.CilindradaMin"  />
+                                            <input asp-for="Vm.CilindradaMax"/>
+                                        </div>
+                                    </div>
+                                </p>
+
+                                @*<p>
+                                        <div class="form-group">
+                                            <div class="pb_select-wrap">
+                                                <select asp-for="Vm.ValorMotorTfs" asp-items="Model.ListaMotorTfs" class="form-control pb_height-50 reverse">
+                                                    <option value="" selected>MOTOR TRS</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </p>
+
+                                    <p>
+                                        <div class="form-group">
+                                            <div class="pb_select-wrap">
+                                                <select asp-for="Vm.ValorHp" asp-items="Model.ListaHp" class="form-control pb_height-50 reverse">
+                                                    <option value="" selected>HP</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </p>
+
+                                    <p>
+                                        <div class="form-group">
+                                            <div class="pb_select-wrap">
+                                                <select asp-for="Vm.ValorCombustible" asp-items="Model.ListaTorqueNm" class="form-control pb_height-50 reverse">
+                                                    <option value="" selected>TORQUE NM</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </p>*@
+
+                                @*<p>
+                                        <div class="form-group">
+                                            <div class="pb_select-wrap">
+                                                <select asp-for="Vm.ValorCombustible" asp-items="Model.ListaVFinalKmH" class="form-control pb_height-50 reverse">
+                                                    <option value="" selected>V FINAL KM/H</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </p>
+
+                                    <p>
+                                        <div class="form-group">
+                                            <div class="pb_select-wrap">
+                                                <select asp-for="Vm.ValorCombustible" asp-items="Model.ListaTraccion" class="form-control pb_height-50 reverse">
+                                                    <option value="" selected>TRACCIÓN</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </p>
+
+                                    <p>
+                                        <div class="form-group">
+                                            <div class="pb_select-wrap">
+                                                <select asp-for="Vm.ValorCombustible" asp-items="Model.ListaTransmision" class="form-control pb_height-50 reverse">
+                                                    <option value="" selected>TRANSMISIÓN</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </p>
+                                    <p>
+                                        <div class="form-group">
+                                            <div class="pb_select-wrap">
+                                                <select asp-for="Vm.ValorCombustible" asp-items="Model.ListaSensorEstacionamiento" class="form-control pb_height-50 reverse">
+                                                    <option value="" selected>SENSOR ESTACIONAMIENTO</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </p>
+                                    <p>
+                                        <div class="form-group">
+                                            <div class="pb_select-wrap">
+                                                <select asp-for="Vm.ValorCombustible" asp-items="Model.ListaPaisFabricacion" class="form-control pb_height-50 reverse">
+                                                    <option value="" selected>PAIS FABRICACIÓN</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </p>
+
+                                    <div class="form-group filter-switch mb-2">
+                                        <p>Frenos Asis... <input type="checkbox" class="kendoswitchs" asp-for="Vm.ValorFrenosAsistidos" aria-label="Notifications Switch" /></p>
+                                    </div>
+                                    <div class="form-group filter-switch">
+                                        <p>Faros led <input type="checkbox" class="kendoswitchs" asp-for="Vm.ValorFrenosAsistidos" aria-label="Notifications Switch" /></p>
+                                    </div>
+                                    <div class="form-group filter-switch">
+                                        <p>Llantas alea... <input type="checkbox" class="kendoswitchs" asp-for="Vm.ValorFrenosAsistidos" aria-label="Notifications Switch" /></p>
+                                    </div>
+                                    <div class="form-group filter-switch">
+                                        <p>Alarma <input type="checkbox" class="kendoswitchs" asp-for="Vm.ValorFrenosAsistidos" aria-label="Notifications Switch" /></p>
+                                    </div>
+                                    <div class="form-group filter-switch">
+                                        <p>Cierre cent...<input type="checkbox" class="kendoswitchs" asp-for="Vm.ValorFrenosAsistidos" aria-label="Notifications Switch" /></p>
+                                    </div>
+                                    <div class="form-group filter-switch">
+                                        <p>Camara retro...<input type="checkbox" class="kendoswitchs" asp-for="Vm.ValorFrenosAsistidos" aria-label="Notifications Switch" /></p>
+                                    </div>
+                                    <div class="form-group filter-switch">
+                                        <p>Rueda rep... <input type="checkbox" class="kendoswitchs" asp-for="Vm.ValorFrenosAsistidos" aria-label="Notifications Switch" /></p>
+                                    </div>*@
+                                <p>
+                                    <button type="submit" class="btn btn-primary">Filtrar</button>
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col pl-1">
+                    <section class="" id="section-features">
+                        <div class="k-content">
+                            <div id="listView" class="grid-container"></div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="busquedaid" value="@Model.Id" />
+
+    <script type="text/x-kendo-template" id="template">
+        <div class="product card">
+            <a href="/publico/PublicacionNuevo/#= idEnc #">
+                <img src="#= url#" alt="xx" class="card-img-top" />
+            </a>
+            <div class="product-detail">
+                <p class="box-brand-model-label">#:marca# #:modelo# </p>
+                <p class="box-car-location">#:tipoVehiculo# - #:combustible#</p>
+            </div>
+            <div class="product-actions">
+                <p class="box-car-price">$ #:precio# CLP</p>
+                <a href="/publico/PublicacionNuevo/#= idEnc #" class="btn btn-primary mb-3">Más Información</a>
+            </div>
+        </div>
+    </script>
+</section>
+
+@section Csses {
+    <link href="~/css/kendo.bootstrap-v4.min.css" rel="stylesheet" />
+    <link href="~/css/vehicle-styles.css" rel="stylesheet" />
+}
+
+@section Scripts {
+    <script src="~/js/jszip.min.js"></script>
+    <script src="~/js/kendo.all.min.js"></script>
+    <script src="~/js/kendo.culture.es-CL.min.js"></script>
+    <script src="~/js/kendo.messages.es-ES.min.js"></script>
+    <script src="~/js/app/resultados.js"></script>
+}

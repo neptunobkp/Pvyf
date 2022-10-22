@@ -1,0 +1,43 @@
+﻿@page
+@model Web.OpinionModel
+@{
+    ViewData["Title"] = "Opinion";
+}
+
+<section class="pb_section pb_slant-light vehicle-detail pb-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="font-weight-normal">@Model.opinion.Titulo</h1>
+                <p class="mt-4">
+                    @Model.opinion.DetalleBreve
+                </p>
+                <img src="~/images/temp/@Model.opinion.UriArchivoFoto" alt="Foto @Model.opinion.Titulo" class="card-img-top" heigh="150px" />
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="index-options-sectiona pb-5" id="section-servicios">
+    <div class="container">
+        <div class="row">
+            <div class="col-9 pr-5">
+                <p class="mt-4 pb_font-40">Resumen</p>
+                <p class="mt-2 mb-5">
+                    @Html.Raw(Model.opinion.TextoPrincipal)
+                </p>
+            </div>
+            <div class="col">
+                <div class="mt-5">
+                    <p class="mt-4 font-weight-bold">Precio:</p>
+                    <p class="ml-2">@Model.opinion.RangoPrecios</p>
+                    <p class="mt-4 font-weight-bold">Evaluación:</p>
+                    <p class="ml-2">@Model.opinion.Puntuacion de 5 puntos</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
